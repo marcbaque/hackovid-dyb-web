@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  web3Provider: "wss://rinkeby.infura.io/ws/v3/6d7880a8f4b347ca8953d2715e164241"
 };
 
 /*

@@ -1,0 +1,10 @@
+.ticket-detail {
+    & > h3 {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    & > p {
+        font-size: 0.7rem;
+    }
+}

@@ -1,0 +1,14 @@
+<div class="ticket-detail">
+    <h3> {{ data?.buyer?.name }} </h3>
+    <p> #{{data?.id}} - {{ data?.date | date:'yyyy/MM/dd HH:mm' }} </p>
+
+    <mat-divider></mat-divider>
+
+    <mat-list>
+        <mat-list-item *ngFor="let product of data?.products"> {{ product.count}}x {{ product.name }} </mat-list-item>
+        
+        <mat-divider></mat-divider>
+
+        <mat-list-item> {{ 'seller.dashboard.total' | translate}}: {{ data?.total }}€</mat-list-item>
+    </mat-list>
+</div>

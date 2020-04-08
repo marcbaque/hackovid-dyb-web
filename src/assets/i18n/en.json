@@ -1,0 +1,42 @@
+{
+    "home": {
+        "login-seller": "Log in as seller"
+    },
+    "seller": {
+        "loading": "Checking your permissions...",
+        "not-authorized": "You are not authorized to acces this section",
+        "signup": {
+            "label": "Signup",
+            "title": "Signup form",
+            "description": "Lorem ipsum dolor sit amet",
+            "name": "Store name",
+            "cif": "CIF",
+            "cancel": "Cancel",
+            "confirm": "Confirm"
+        },
+        "dashboard": {
+            "title": "Do Your Bit - Dashboard",
+            "balance": "Balance",
+            "total-tickets": "Total tickets",
+            "total": "Total",
+            "list": {
+                "title": "Transactions"
+            },
+            "create-ticket": {
+                "title": "New ticket",
+                "subtitle": "Add all the products to include",
+                "new-product": "New product",
+                "count": "Count",
+                "no-items": "No items in cart",
+                "confirm": "Confirm",
+                "close": "Close",
+                "creating": "Creating ticket...",
+                "waiting": "Waiting for transaction...",
+                "confirmed": "Payment successful",
+                "qr": {
+                    "title": "Scan the following QR"
+                }
+            }
+        }
+    }
+}

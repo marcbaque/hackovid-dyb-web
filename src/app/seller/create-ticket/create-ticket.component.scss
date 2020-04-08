@@ -1,0 +1,87 @@
+.create-ticket {
+    & > h3 {
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    & > p {
+        font-size: 0.7rem;
+    }
+
+    &-add {
+        padding-top: 16px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        & > mat-form-field {
+            flex: 1;
+            padding-right: 32px;
+        }
+
+        & > button {
+            margin-bottom: 1.25em;
+        }
+
+        &-count {
+            max-width: 100px;
+        }
+    }
+
+    &-list {
+
+        &-empty {
+            padding: 16px 32px;
+            
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &-loading {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > p {
+            padding-top: 16px;
+        }
+    }
+
+    &-qr {
+        width: 100%;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > p {
+            width: 100%;
+            padding-top: 16px;
+        }
+    }
+
+    &-confirmed {
+        padding-top: 32px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > mat-icon {
+            font-size: 120px;
+            width: 120px;
+            height: 120px;
+        }
+
+        & > p {
+            padding: 16px;
+        }
+    }
+}

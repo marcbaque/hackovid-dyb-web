@@ -1,0 +1,56 @@
+<div class="create-ticket">
+    <h3> {{ 'seller.dashboard.create-ticket.title' | translate }} </h3>
+    <p> {{ 'seller.dashboard.create-ticket.subtitle' | translate }} </p>
+
+    <mat-divider></mat-divider>
+
+    <div *ngIf="step === 'FORM'">
+        <div class="create-ticket-add">
+            <mat-form-field>
+                <mat-label>{{ 'seller.dashboard.create-ticket.new-product' | translate }}</mat-label>
+                <select matNativeControl [(ngModel)]="selectedProduct">
+                    <option *ngFor="let product of productList" [value]="product.id">{{ product.name }}</option>
+                </select>
+            </mat-form-field>
+            <mat-form-field class="create-ticket-add-count">
+                <mat-label>{{ 'seller.dashboard.create-ticket.count' | translate }}</mat-label>
+                <input matInput type="number" min="1" [(ngModel)]="selectedCount">
+            </mat-form-field>
+            <button mat-icon-button aria-label="Add product" (click)="addProduct()" [disabled]="!selectedProduct || !selectedCount">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="create-ticket-list">
+            <div *ngIf="ticket.products.length > 0">
+                <mat-list *ngIf="ticket.products.length > 0">
+                    <mat-list-item *ngFor="let product of ticket.products">
+                        {{ product.count }} x {{ product.name }}
+                    </mat-list-item>
+                    <mat-list-item> <b> {{ 'seller.dashboard.total' | translate }}: {{ ticket.total }}€ </b> </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="create-ticket-list-empty" *ngIf="ticket.products.length === 0">
+                {{ 'seller.dashboard.create-ticket.no-items' | translate }}
+            </div>
+        </div>
+    </div>
+    <div *ngIf="step === 'LOADING'" class="create-ticket-loading">
+        <mat-spinner [diameter]="80" [strokeWidth]="5"></mat-spinner>
+        <p *ngIf="loadingText">{{ loadingText | translate }}</p>
+    </div>
+    <div *ngIf="step === 'QR'" class="create-ticket-qr">
+        <p> {{ 'seller.dashboard.create-ticket.qr.title' | translate }}: </p>
+        <qrcode [qrdata]="ticket.toString()" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+    <div class="create-ticket-confirmed" *ngIf="step === 'CONFIRMED'">
+        <mat-icon color="success">check_circle_outline</mat-icon>
+        <p> {{ 'seller.dashboard.create-ticket.confirmed' | translate }} </p>
+    </div>
+    <div align="end" mat-dialog-actions *ngIf="step === 'FORM'">
+        <button mat-button mat-dialog-close>{{ 'seller.dashboard.create-ticket.close' | translate }}</button>
+        <button mat-button (click)="onConfirmClick()" [disabled]="ticket.products.length === 0">{{ 'seller.dashboard.create-ticket.confirm' | translate }}</button>
+    </div>
+    <div align="end" mat-dialog-actions *ngIf="step === 'QR' || step === 'CONFIRMED'">
+        <button mat-button mat-dialog-close>{{ 'seller.dashboard.create-ticket.close' | translate }}</button>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="seller">
+    <div class="seller-loading" *ngIf="state === 'LOADING'">
+        <mat-spinner [diameter]="80" [strokeWidth]="5"></mat-spinner>
+        <p>{{ 'seller.loading' | translate }}</p>
+    </div>
+    <div class="seller-not-authorized" *ngIf="state === 'NOT_AUTHORIZED'">
+        <mat-icon color="danger">highlight_off</mat-icon>
+        <p> {{ 'seller.not-authorized' | translate }} </p>
+        <button mat-raised-button color="primary" (click)="openSignupDialog()"> {{ 'seller.signup.label' | translate }} </button>
+    </div>
+    <div class="seller-dashboard" *ngIf="state === 'DASHBOARD'">
+        <app-seller-dashboard></app-seller-dashboard>
+    </div>
+</div>

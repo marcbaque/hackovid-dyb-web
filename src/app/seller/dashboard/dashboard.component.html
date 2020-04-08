@@ -1,0 +1,32 @@
+<mat-toolbar> {{ 'seller.dashboard.title' | translate }} </mat-toolbar>
+<div class="seller-dashboard container">
+    <div class="seller-dashboard-header row">
+        <metric-card class="col-12 col-sm-6" [title]="'seller.dashboard.balance' | translate" [value]="balance"></metric-card>
+        <metric-card class="col-12 col-sm-6" [title]="'seller.dashboard.total-tickets' | translate" [value]="ticketList.length"></metric-card>
+    </div>
+    <mat-card class="seller-dashboard-list-container">
+        <mat-list class="seller-dashboard-list" *ngIf="ticketList.length > 0">
+            <div mat-subheader> {{ 'seller.dashboard.list.title' | translate }} </div>
+            <div *ngFor="let item of ticketList" class="seller-dashboard-list-item" (click)="onListItemClick(item)">
+                <mat-list-item>
+                    <h3 matLine class="seller-dashboard-list-title"> {{item.buyer?.name}} </h3>
+                    <p matLine class="seller-dashboard-list-subtitle">
+                        <span> #{{item.id}} - {{ item.date | date:'yyyy/MM/dd HH:mm' }}
+                        </span>
+                    </p>
+                    <mat-action-list>
+                        <b>{{ item.total }}€ </b>
+                    </mat-action-list>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </div>
+        </mat-list>
+        <div class="seller-dashboard-list-empty-state" *ngIf="ticketList.length === 0">
+            No data
+        </div>
+    </mat-card>
+    <button class="seller-dashboard-new" mat-fab aria-label="New ticket" (click)="onCreateTicket()">
+        <mat-icon>add</mat-icon>
+    </button>
+
+</div>

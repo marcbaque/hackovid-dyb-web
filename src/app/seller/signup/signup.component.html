@@ -1,0 +1,18 @@
+<div class="signup">
+    <h1 mat-dialog-title> {{ 'seller.signup.title' | translate }} </h1>
+    <div mat-dialog-content>
+        <p>{{ 'seller.signup.description' | translate }}</p>
+        <mat-form-field>
+            <mat-label>{{ 'seller.signup.name' | translate }}</mat-label>
+            <input matInput [(ngModel)]="data.name">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ 'seller.signup.cif' | translate }}</mat-label>
+            <input matInput [(ngModel)]="data.cif">
+        </mat-form-field>
+    </div>
+    <div align="end" mat-dialog-actions>
+        <button mat-button mat-dialog-close>{{ 'seller.signup.cancel' | translate }}</button>
+        <button mat-button [mat-dialog-close]="data">{{ 'seller.signup.confirm' | translate }}</button>
+    </div>
+</div>
