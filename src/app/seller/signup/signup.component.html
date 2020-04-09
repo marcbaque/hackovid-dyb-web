@@ -7,6 +7,10 @@
             <input matInput [(ngModel)]="data.name">
         </mat-form-field>
         <mat-form-field>
+            <mat-label>{{ 'seller.signup.email' | translate }}</mat-label>
+            <input matInput [(ngModel)]="data.email">
+        </mat-form-field>
+        <mat-form-field>
             <mat-label>{{ 'seller.signup.cif' | translate }}</mat-label>
             <input matInput [(ngModel)]="data.cif">
         </mat-form-field>

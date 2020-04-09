@@ -21,6 +21,10 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.fetchData();
+  }
+
+  public fetchData() {
     this.sellerService.getTickets()
       .subscribe(res => {
         this.ticketList = res;
@@ -49,7 +53,7 @@ export class DashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+      this.fetchData();
     });
   }
 

@@ -1,5 +1,5 @@
 export default class ProductEntity {
-    public id: string;
+    public id: number;
     public name: string;
     public count: number;
     
@@ -12,7 +12,7 @@ export default class ProductEntity {
     }
 
     constructor(data?: {
-        id: string,
+        id: number,
         name: string,
         price: number,
         count?: number

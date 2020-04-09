@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, switchMap, map } from 'rxjs/operators';
 import { Web3Service } from '../core/web3/web3.service';
 import TicketEntity from '../core/entity/ticket.entity';
 import ProductEntity from '../core/entity/product.entity';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ import ProductEntity from '../core/entity/product.entity';
 export class SellerService {
 
   constructor(
+    public http: HttpClient,
     public web3Service: Web3Service
   ) { }
 
@@ -26,9 +29,25 @@ export class SellerService {
     })
   }
 
-  public signupSeller() {
+  public signupSeller(sellerData: any) {
     return this.web3Service.registerUser()
-  }
+      .pipe(
+        switchMap(res => {
+          const body = {
+            public_key: res,
+            name: sellerData.name,
+            email: sellerData.email,
+            nif: sellerData.cif
+          }
+          return this.http.post(`${environment.apiUrl}/seller`, body)
+            .pipe(
+              map(() => {
+                this.setSellerName(body.name);
+              })
+            )
+        })
+      )
+    }
 
   public getBalance(): Observable<number> {
     return new Observable<number>(subscriber => {
@@ -40,93 +59,94 @@ export class SellerService {
   }
 
   public getTickets(): Observable<TicketEntity[]> {
-    return new Observable<TicketEntity[]>(subscriber => {
-      let tickets = Array.from(Array(10).keys()).map(i => {
-        return new TicketEntity({
-          id: i,
-          buyer: {
-            name: "Marc Baqué"
-          },
-          seller: {
-            name: "Bonpreu"
-          },
-          products: [
-            new ProductEntity({
-              id: 'p1',
-              name: "Colacao",
-              price: 1.2,
-              count: 10
-            }),
-            new ProductEntity({
-              id: 'p2',
-              name: "Colacao",
-              price: 1.2,
-              count: 10
-            }),
-            new ProductEntity({
-              id: 'p3',
-              name: "Colacao",
-              price: 1.2,
-              count: 10
-            }),
-            new ProductEntity({
-              id: 'p4',
-              name: "Colacao",
-              price: 1.2,
-              count: 10
-            }),
-          ],
-          date: new Date()
+    return this.http.get(`${environment.apiUrl}/tickets`)
+      .pipe(
+        map((tickets: any[]) => {
+          return tickets.map(ticket => {
+            return new TicketEntity({
+              id: ticket.id,
+              buyer: {
+                name: ticket.buyer
+              },
+              products: ticket.products.map(product => {
+                return new ProductEntity({
+                  id: product.Product.product_id,
+                  name: product.Product.name,
+                  price: product.Product.price,
+                  count: product.amount
+                })
+              }),
+              date: new Date(ticket.timestamp)
+            })
+          })
         })
-      })
-
-      subscriber.next(tickets);
-      subscriber.complete();
-    }).pipe(
-      delay(1500)
-    )
+      )
   }
 
   public getProducts(): Observable<ProductEntity[]> {
-    return new Observable<ProductEntity[]>(subscriber => {
-      let products = Array.from(Array(10).keys()).map(i => {
-        return new ProductEntity({
-          id: `p${i}`,
-          name: `Colacao ${i}`,
-          price: 1.2
+    return this.http.get(`${environment.apiUrl}/products`)
+      .pipe(
+        map((products: any[]) => {
+          return products.map(product => {
+            return new ProductEntity({
+              id: product.product_id,
+              name: product.name,
+              price: product.price
+            })
+          })
         })
+      )
+  }
+
+  public createTicket(ticket: TicketEntity): Observable<number> {
+    const body = {
+      seller: this.web3Service.getAccount(),
+      timestamp: ticket.date.toISOString(),
+      products: ticket.products.map(product => {
+        return {
+          product_id: product.id,
+          amount: product.count
+        }
       })
-
-      subscriber.next(products);
-      subscriber.complete();
-    }).pipe(
-      delay(500)
-    )
+    }
+    return this.http.post(`${environment.apiUrl}/tickets`, body)
+      .pipe(
+        map((ticket: any) => {
+          return ticket.id;
+        })
+      );
   }
 
-  public createTicket(ticket: TicketEntity) {
-    return new Observable(subscriber => {
-      subscriber.next(ticket);
-      subscriber.complete();
-    }).pipe(
-      delay(500)
-    )
+  public checkTicketTransaction(ticket: TicketEntity): Observable<string> {
+    return new Observable<string>(subscriber => {
+      this.getTicketById(ticket)
+        .subscribe((ticket: any) => {
+          if (ticket.tx_hash) {
+            subscriber.next(ticket.tx_hash)
+            subscriber.complete()
+          } else {
+            subscriber.next(null);
+            subscriber.complete()
+          }
+        })
+    })
   }
 
-  public checkTicketTransaction(ticket: TicketEntity): Observable<TicketEntity> {
-    return new Observable<TicketEntity>(subscriber => {
-      let rand = Math.random();
+  public getTicketById(ticket: TicketEntity) {
+    console.log('Previous', ticket)
+    return this.http.get(`${environment.apiUrl}/ticket/${ticket.id}`)
+      .pipe(
+        map(ticket => {
+          console.log(ticket)
+        })
+      )
+  }
 
-      if (rand > 0.75) {
-        ticket.transactionHash = '0x000000000000'
-        subscriber.next(ticket)
-        subscriber.complete()
-      } else {
-        subscriber.next(null)
-        subscriber.complete()
-      }
-    }).pipe(
-      delay(500)
-    )
+  public getSellerName() {
+    return localStorage.getItem('SELLER_NAME') || '';
+  }
+
+  private setSellerName(name: string) {
+    localStorage.setItem('SELLER_NAME', name);
   }
 }

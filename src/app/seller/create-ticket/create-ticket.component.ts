@@ -28,7 +28,7 @@ export class CreateTicketComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ticket = TicketEntity.new(this.web3Service.getAccount());
+    this.ticket = TicketEntity.new(this.web3Service.getAccount(), this.sellerService.getSellerName());
     this.sellerService.getProducts()
       .subscribe(res => {
         this.productList = res;
@@ -37,7 +37,7 @@ export class CreateTicketComponent implements OnInit {
 
   addProduct() {
     let product = this.productList.find((product) => {
-      return product.id === this.selectedProduct;
+      return product.id === parseInt(this.selectedProduct);
     })
 
     product = product ? product : this.productList[0]
@@ -55,9 +55,10 @@ export class CreateTicketComponent implements OnInit {
       this.step = 'LOADING';
       this.loadingText = 'seller.dashboard.create-ticket.creating';
       this.sellerService.createTicket(this.ticket)
-        .subscribe(res => {
+        .subscribe(ticketId => {
+          this.ticket.id = ticketId;
           this.step = "QR";
-
+          console.log(this.ticket.toString())
           this.checkTicketTransaction();
         })
     } else {
@@ -67,9 +68,9 @@ export class CreateTicketComponent implements OnInit {
 
   public checkTicketTransaction() {
     this.sellerService.checkTicketTransaction(this.ticket)
-      .subscribe(ticket => {
-        if (ticket) {
-          this.ticket = ticket;
+      .subscribe(txHash => {
+        if (txHash) {
+          this.ticket.transactionHash = txHash;
           this.step = 'LOADING';
           this.loadingText = 'seller.dashboard.create-ticket.waiting';
 

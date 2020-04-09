@@ -11,6 +11,7 @@
             "description": "Lorem ipsum dolor sit amet",
             "name": "Store name",
             "cif": "CIF",
+            "email": "Email",
             "cancel": "Cancel",
             "confirm": "Confirm"
         },

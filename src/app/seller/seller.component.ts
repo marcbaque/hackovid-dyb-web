@@ -32,7 +32,8 @@ export class SellerComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.sellerService.signupSeller()
+      console.log(result)
+      this.sellerService.signupSeller(result)
         .subscribe(res => {
           console.log(res)
           this.state = 'DASHBOARD';

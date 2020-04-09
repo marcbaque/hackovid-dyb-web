@@ -10,7 +10,8 @@ export class SignupComponent {
 
   public data = {
     name: "",
-    cif: ""
+    cif: "",
+    email: ""
   }
 
   constructor(

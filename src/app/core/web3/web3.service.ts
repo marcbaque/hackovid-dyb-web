@@ -35,10 +35,7 @@ export class Web3Service {
 
   public getAccount() {
     if (this.currentAccount) return this.currentAccount;
-
-    this.web3.eth.getAccounts()
-      .then(console.log)
-
+    
     let privateKey;
     if (privateKey = localStorage.getItem(this.WEB3_ACCOUNT_PRIVATE_KEY)) {
       this.currentAccount = this.web3.eth.accounts.privateKeyToAccount(privateKey).address;

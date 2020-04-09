@@ -2,15 +2,15 @@ import ProductEntity from './product.entity';
 import { JsonPipe } from '@angular/common';
 
 export default class TicketEntity {
-    public id: string;
+    public id: number;
     public buyer: {
         name: string;
         publicKey: string;
         nif: string;
     }
     public seller: {
+        id: string;
         name: string;
-        publicKey: string;
         cif: string;
     }
     public products: ProductEntity[] = [];
@@ -35,10 +35,11 @@ export default class TicketEntity {
         this.calculateTotal()
     }
 
-    public static new(publicKey: string): TicketEntity {
+    public static new(publicKey: string, name: string): TicketEntity {
         return new TicketEntity({
             seller: {
-                name: publicKey
+                id: publicKey,
+                name: name
             },
             products: [],
             date: new Date()
@@ -53,8 +54,12 @@ export default class TicketEntity {
 
     public toString() {
         return JSON.stringify({
-            seller: this.seller.publicKey,
-            products: this.products.map(product => product.toString()),
+            id: this.id,
+            seller: {
+                id: this.seller.id,
+                name: this.seller.name
+            },
+            products: this.products,
             date: this.date.getTime()
         })
     }
