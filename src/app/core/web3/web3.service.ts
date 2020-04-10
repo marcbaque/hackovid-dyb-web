@@ -62,7 +62,7 @@ export class Web3Service {
   }
 
   public redeem() {
-    return from(this.send(this.donationCenterContract, this.donationCenterContract.methods.collect_dat()))
+    return from(this.send(this.donationCenterContract, this.donationCenterContract.methods.collectDai()))
       .pipe(
         switchMap(res => {
           console.log(res)

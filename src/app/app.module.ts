@@ -10,8 +10,6 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomeComponent } from './home/home.component';
-import { DonateComponent } from './home/donate/donate.component';
 import { SharedModule } from './shared/shared.module';
 import { SellerComponent } from './seller/seller.component';
 import { SellerService } from './seller/seller.service';
@@ -27,8 +25,6 @@ import { RedeemComponent } from './seller/redeem/redeem.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    DonateComponent,
     SellerComponent,
     SignupComponent,
     DashboardComponent,
