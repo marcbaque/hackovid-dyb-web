@@ -2,6 +2,13 @@
 
     padding: 16px 0;
 
+    &-toolbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     &-header {
         padding-bottom: 16px;
     }

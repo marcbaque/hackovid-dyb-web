@@ -38,6 +38,14 @@
                     "title": "Scan the following QR"
                 }
             }
+        },
+        "redeem": {
+            "info": "Lorem ipsum dolor sit amet est",
+            "confirm": "Confirm",
+            "loading": "Loading...",
+            "success": "Credit redeemed succesfully",
+            "error": "An error ocurred while redeeming your credit",
+            "close": "Close"
         }
     }
 }

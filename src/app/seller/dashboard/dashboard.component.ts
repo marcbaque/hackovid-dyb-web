@@ -4,6 +4,7 @@ import TicketEntity from 'src/app/core/entity/ticket.entity';
 import { MatDialog } from '@angular/material/dialog';
 import { TicketDetailComponent } from '../ticket-detail/ticket-detail.component';
 import { CreateTicketComponent } from '../create-ticket/create-ticket.component';
+import { RedeemComponent } from '../redeem/redeem.component';
 
 @Component({
   selector: 'app-seller-dashboard',
@@ -49,6 +50,16 @@ export class DashboardComponent implements OnInit {
 
   public onCreateTicket() {
     const dialogRef = this.dialog.open(CreateTicketComponent, {
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.fetchData();
+    });
+  }
+
+  public onRedeem() {
+    const dialogRef = this.dialog.open(RedeemComponent, {
       width: '500px',
     });
 

@@ -4,6 +4,7 @@ import ProductEntity from 'src/app/core/entity/product.entity';
 import TicketEntity from 'src/app/core/entity/ticket.entity';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Web3Service } from 'src/app/core/web3/web3.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-create-ticket',
@@ -67,14 +68,15 @@ export class CreateTicketComponent implements OnInit {
   }
 
   public checkTicketTransaction() {
-    this.sellerService.checkTicketTransaction(this.ticket)
+    setTimeout(() => {
+      this.sellerService.checkTicketTransaction(this.ticket)
       .subscribe(txHash => {
         if (txHash) {
           this.ticket.transactionHash = txHash;
           this.step = 'LOADING';
           this.loadingText = 'seller.dashboard.create-ticket.waiting';
 
-          this.web3Service.waitForTransaction(this.ticket.transactionHash)
+          from(this.web3Service.waitTransaction(this.ticket.transactionHash))
             .subscribe(() => {
               this.step = 'CONFIRMED';
             }, () => {
@@ -84,6 +86,7 @@ export class CreateTicketComponent implements OnInit {
           this.checkTicketTransaction();
         }
       })
+    }, 2000);
   }
 
 }

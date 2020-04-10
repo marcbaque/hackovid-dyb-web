@@ -1,7 +1,10 @@
-<mat-toolbar> {{ 'seller.dashboard.title' | translate }} </mat-toolbar>
+<mat-toolbar class="seller-dashboard-toolbar">
+    <span>{{ 'seller.dashboard.title' | translate }}</span>
+    <button mat-button (click)="onRedeem()">Redeem</button>
+</mat-toolbar>
 <div class="seller-dashboard container">
     <div class="seller-dashboard-header row">
-        <metric-card class="col-12 col-sm-6" [title]="'seller.dashboard.balance' | translate" [value]="balance"></metric-card>
+        <metric-card class="col-12 col-sm-6" [title]="'seller.dashboard.balance' | translate" value="{{balance}}€"></metric-card>
         <metric-card class="col-12 col-sm-6" [title]="'seller.dashboard.total-tickets' | translate" [value]="ticketList.length"></metric-card>
     </div>
     <mat-card class="seller-dashboard-list-container">

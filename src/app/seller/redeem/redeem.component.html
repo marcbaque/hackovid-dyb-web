@@ -1,0 +1,24 @@
+<div class="redeem">
+    <div class="redeem-info" *ngIf="state === 'INFO'">
+        <mat-icon color="info">help_outline</mat-icon>
+        <p> {{ 'seller.redeem.info' | translate }} </p>
+    </div>
+    <div class="redeem-waiting" *ngIf="state === 'WAITING'">
+        <mat-spinner [diameter]="80" [strokeWidth]="5"></mat-spinner>
+        <p>{{ 'seller.redeem.loading' | translate }}</p>
+    </div>
+    <div class="redeem-success" *ngIf="state === 'SUCCESS'">
+        <mat-icon color="success">check_circle_outline</mat-icon>
+        <p> {{ 'seller.redeem.success' | translate }} </p>
+    </div>
+    <div class="redeem-error" *ngIf="state === 'ERROR'">
+        <mat-icon color="danger">highlight_off</mat-icon>
+        <p> {{ 'seller.redeem.error' | translate }} </p>
+    </div>
+    <div align="end" mat-dialog-actions *ngIf="state === 'INFO'">
+        <button mat-button (click)="redeem()">{{ 'seller.redeem.confirm' | translate }}</button>
+    </div>
+    <div align="end" mat-dialog-actions *ngIf="state !== 'INFO'">
+        <button mat-button mat-dialog-close [disabled]="state === 'WAITING'">{{ 'seller.redeem.close' | translate }}</button>
+    </div>
+</div>

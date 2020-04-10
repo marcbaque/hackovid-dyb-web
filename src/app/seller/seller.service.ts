@@ -50,16 +50,11 @@ export class SellerService {
     }
 
   public getBalance(): Observable<number> {
-    return new Observable<number>(subscriber => {
-      subscriber.next(100);
-      subscriber.complete();
-    }).pipe(
-      delay(500)
-    )
+    return this.web3Service.getBalance()
   }
 
   public getTickets(): Observable<TicketEntity[]> {
-    return this.http.get(`${environment.apiUrl}/tickets`)
+    return this.http.get(`${environment.apiUrl}/tickets?seller=${this.web3Service.getAccount()}`)
       .pipe(
         map((tickets: any[]) => {
           return tickets.map(ticket => {
@@ -120,9 +115,9 @@ export class SellerService {
   public checkTicketTransaction(ticket: TicketEntity): Observable<string> {
     return new Observable<string>(subscriber => {
       this.getTicketById(ticket)
-        .subscribe((ticket: any) => {
-          if (ticket.tx_hash) {
-            subscriber.next(ticket.tx_hash)
+        .subscribe((ticket: TicketEntity) => {
+          if (ticket.transactionHash) {
+            subscriber.next(ticket.transactionHash)
             subscriber.complete()
           } else {
             subscriber.next(null);
@@ -133,11 +128,25 @@ export class SellerService {
   }
 
   public getTicketById(ticket: TicketEntity) {
-    console.log('Previous', ticket)
-    return this.http.get(`${environment.apiUrl}/ticket/${ticket.id}`)
+    return this.http.get(`${environment.apiUrl}/tickets/${ticket.id}`)
       .pipe(
-        map(ticket => {
-          console.log(ticket)
+        map((res: any) => {
+          return new TicketEntity({
+            id: res.id,
+            transactionHash: res.tx_hash,
+            buyer: {
+              name: res.buyer
+            },
+            products: res.products.map(product => {
+              return new ProductEntity({
+                id: product.Product.product_id,
+                name: product.Product.name,
+                price: product.Product.price,
+                count: product.amount
+              })
+            }),
+            date: new Date(res.timestamp)
+          })
         })
       )
   }

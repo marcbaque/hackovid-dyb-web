@@ -24,13 +24,15 @@ export default class TicketEntity {
         buyer?,
         seller?,
         products?: ProductEntity[],
-        date?
+        date?,
+        transactionHash?
     }) {
         this.id = data?.id;
         this.buyer = data?.buyer;
         this.seller = data?.seller;
         this.products = data?.products || [];
         this.date = data?.date;
+        this.transactionHash = data?.transactionHash;
 
         this.calculateTotal()
     }

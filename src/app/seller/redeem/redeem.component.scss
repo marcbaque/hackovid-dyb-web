@@ -1,0 +1,70 @@
+.redeem {
+    &-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > mat-icon {
+            margin-top: 35px;
+            width: 80px;
+            height: 80px;
+            font-size: 80px;
+        }
+
+        & > p {
+            padding-top: 16px;
+        }
+    }
+
+    &-waiting {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > mat-spinner {
+            margin-top: 35px;
+        }
+
+        & > p {
+            padding-top: 16px;
+        }
+    }
+
+    &-success {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > mat-icon {
+            margin-top: 35px;
+            width: 80px;
+            height: 80px;
+            font-size: 80px;
+        }
+
+        & > p {
+            padding-top: 16px;
+        }
+    }
+
+    &-error {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & > mat-icon {
+            margin-top: 35px;
+            width: 80px;
+            height: 80px;
+            font-size: 80px;
+        }
+
+        & > p {
+            padding-top: 16px;
+        }
+    }
+}

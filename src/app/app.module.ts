@@ -22,6 +22,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './seller/dashboard/dashboard.component';
 import { TicketDetailComponent } from './seller/ticket-detail/ticket-detail.component';
 import { CreateTicketComponent } from './seller/create-ticket/create-ticket.component';
+import { RedeemComponent } from './seller/redeem/redeem.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CreateTicketComponent } from './seller/create-ticket/create-ticket.comp
     SignupComponent,
     DashboardComponent,
     TicketDetailComponent,
-    CreateTicketComponent
+    CreateTicketComponent,
+    RedeemComponent
   ],
   imports: [
     BrowserModule,
