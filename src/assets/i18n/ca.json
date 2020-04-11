@@ -1,0 +1,50 @@
+{
+    "seller": {
+        "loading": "Comprovant permisos...",
+        "not-authorized": "No estàs autoritzat/da a entrar a aquesta pàgina",
+        "signup": {
+            "label": "Registrar-se",
+            "title": "Formulari de registre",
+            "description": "Lorem ipsum dolor sit amet",
+            "name": "Nom empresa",
+            "cif": "CIF",
+            "email": "Correu electrònic",
+            "cancel": "Cancel·lar",
+            "confirm": "Confirmar"
+        },
+        "dashboard": {
+            "title": "Do Your Bit - Dashboard",
+            "balance": "Balanç",
+            "total-tickets": "Tiquets totals",
+            "total": "Total",
+            "list": {
+                "title": "Transaccions",
+                "no-data": "No hi ha tiquets"
+            },
+            "create-ticket": {
+                "title": "Nou tiquet",
+                "subtitle": "Afegeix tots els productes a incloure",
+                "new-product": "Nou producte",
+                "count": "Total",
+                "no-items": "No hi ha productes a la cistella",
+                "confirm": "Confirmar",
+                "close": "Tancar",
+                "creating": "Creant tiquet...",
+                "waiting": "Esperant confirmació...",
+                "confirmed": "Pagament completat",
+                "qr": {
+                    "title": "Escaneja el següent QR des de la App"
+                }
+            }
+        },
+        "redeem": {
+            "title": "Bescanviar",
+            "info": "Segur que vols bescanviar tot el teu crèdit?",
+            "confirm": "Confirmar",
+            "loading": "Carregant...",
+            "success": "Crèdit bescanviat correctament",
+            "error": "S'ha produit un error al bescanviar el crèdit",
+            "close": "Tancar"
+        }
+    }
+}

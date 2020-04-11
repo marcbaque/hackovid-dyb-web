@@ -1,6 +1,6 @@
 <mat-toolbar class="seller-dashboard-toolbar">
     <span>{{ 'seller.dashboard.title' | translate }}</span>
-    <button mat-button (click)="onRedeem()">Redeem</button>
+    <button mat-button (click)="onRedeem()">{{ 'seller.redeem.title' | translate }}</button>
 </mat-toolbar>
 <div class="seller-dashboard container">
     <div class="seller-dashboard-header row">
@@ -25,7 +25,7 @@
             </div>
         </mat-list>
         <div class="seller-dashboard-list-empty-state" *ngIf="ticketList.length === 0">
-            No data
+            {{ 'seller.dashboard.list.no-data' | translate }}
         </div>
     </mat-card>
     <button class="seller-dashboard-new" mat-fab aria-label="New ticket" (click)="onCreateTicket()">
